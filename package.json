@@ -1,0 +1,14 @@
+{
+  "name": "web-socket-observable",
+  "version": "1.0.0",
+  "description": "Simple wrapper around WebSocket using the reactive pattern",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {},
+  "keywords": ["rxjs", "reactive", "websocket", "ws"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "^6.5.2"
+  }
+}
