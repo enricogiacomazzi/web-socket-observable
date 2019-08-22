@@ -17,7 +17,7 @@ const ws$ = webSocketObservable({
     send$: tick
 });
 
-ws.subscribe(x => {
+ws$.subscribe(x => {
     console.log(x);
 })
 
