@@ -6,8 +6,9 @@
   "types": "index.d.ts",
   "scripts": {},
   "keywords": ["rxjs", "reactive", "websocket", "ws"],
-  "author": "",
-  "license": "ISC",
+  "author": "enrico giacomazzi (enrico@giacomazzi.cc)",
+  "homepage": "https://github.com/enricogiacomazzi/web-socket-observable",
+  "license": "GPL-3.0",
   "dependencies": {
     "rxjs": "^6.5.2"
   }
