@@ -20,10 +20,12 @@ export function webSocketObservable(config: ObservableSocketConfig): Observable<
 		if(!o.closed) {
 		  o.complete();
 		}
-	  } 
+	  };
+
 	  _ws.onerror = (e) => {
 		  o.error(e);
 	  };
+
 	  _ws.onmessage = ({data}) => {
 		try{
 		  o.next(JSON.parse(data));
@@ -39,6 +41,11 @@ export function webSocketObservable(config: ObservableSocketConfig): Observable<
 			_ws.send(typeof x === 'object' ? JSON.stringify(x) : x);
 		  });
 		}
+	  };
+
+	  return () => {
+	  	// if the consumer unsubscribe, close the connection.
+		_ws.close();
 	  }
 	});
   }

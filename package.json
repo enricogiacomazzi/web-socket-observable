@@ -1,6 +1,6 @@
 {
   "name": "web-socket-observable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple wrapper around WebSocket using the reactive pattern",
   "main": "index.js",
   "types": "index.d.ts",
