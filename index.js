@@ -31,6 +31,10 @@ function webSocketObservable(config) {
                 });
             }
         };
+        return () => {
+            // if the consumer unsubscribe, close the connection.
+            _ws.close();
+        };
     });
 }
 exports.webSocketObservable = webSocketObservable;
