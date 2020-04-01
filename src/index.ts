@@ -1,51 +1,31 @@
-import { Observable, Subscription } from 'rxjs';
+import {MonoTypeOperatorFunction, Observable, Subscription} from 'rxjs';
 
-export interface ObservableSocketConfig {
-	url: string;
-	protocols?: string | string[];
-	send$?: Observable<any>
-  }
-  
-export function webSocketObservable(config: ObservableSocketConfig): Observable<any> {
-	let sub: Subscription;
-  
-	return Observable.create(o => {
-	  const _ws = new WebSocket(config.url, config.protocols);
-  
-	  _ws.onclose = () => {
-		if(sub) {
-		  sub.unsubscribe();
-		}
-  
-		if(!o.closed) {
-		  o.complete();
-		}
-	  };
 
-	  _ws.onerror = (e) => {
-		  o.error(e);
-	  };
+export function ws(socket: WebSocket): MonoTypeOperatorFunction<string | Blob | ArrayBuffer> {
+	return input$ => new Observable(o => {
+		let sub: Subscription;
 
-	  _ws.onmessage = ({data}) => {
-		try{
-		  o.next(JSON.parse(data));
-		} 
-		catch {
-		  o.next(data);
-		}
-	  };
-  
-	  _ws.onopen = () => {
-		if(config.send$) {
-		  sub = config.send$.subscribe(x => {
-			_ws.send(typeof x === 'object' ? JSON.stringify(x) : x);
-		  });
-		}
-	  };
+		socket.onopen = () => {
+			sub = input$.subscribe(
+				x => socket.send(x),
+				err =>  o.error(err),
+				() => o.complete()
+			);
+		};
 
-	  return () => {
-	  	// if the consumer unsubscribe, close the connection.
-		_ws.close();
-	  }
+
+		socket.onmessage = ({data}) => o.next(data);
+		socket.onerror = (e) => o.error(e);
+		socket.onclose = () => o.complete();
+
+		return () => {
+			// if the consumer unsubscribe, input complete or in case of error, close the connection.
+			sub?.unsubscribe();
+			socket.close();
+		}
 	});
-  }
+}
+
+
+
+

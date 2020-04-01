@@ -1,11 +1,16 @@
 {
   "name": "web-socket-observable",
-  "version": "1.0.3",
+  "version": "2.0.1",
   "description": "Simple wrapper around WebSocket using the reactive pattern",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {},
-  "keywords": ["rxjs", "reactive", "websocket", "ws"],
+  "keywords": [
+    "rxjs",
+    "reactive",
+    "websocket",
+    "ws"
+  ],
   "author": "enrico giacomazzi (enrico@giacomazzi.cc)",
   "homepage": "https://github.com/enricogiacomazzi/web-socket-observable",
   "license": "GPL-3.0",
